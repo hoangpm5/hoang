@@ -43,3 +43,17 @@ if b2:
         st.write('STAY HOME, STAY HAPPY, STAY HÀANHTUẤN')
         video_5 = 'https://www.youtube.com/watch?v=MMgPOQ9gJhM&list=RDEMrx5Xy48sg-WCr9qiaw1hhg&index=2'
         st.video(video_5, format='video/mp4')
+if b3:
+    with st.expander("Những bản nhạc giúp tâm trạng vui vẻ hơn"):
+        st.title('Ca khúc hay')
+        st.write('Những bản nhạc giúp tâm trạng vui vẻ hơn')
+        video_5 = 'https://www.youtube.com/watch?v=SlsH6PbDJZk&t=898s'
+        st.video(video_5, format='video/mp4')
+
+        st.write('Bài hat về tình yêu quê hương đất nước')
+        video_6 = 'https://www.youtube.com/watch?v=GOMGeUetqlI&list=RDSlsH6PbDJZk&index=3'
+        st.video(video_6, format='video/mp4')
+
+        st.write('Đi giữa trời rực rỡ')
+        video_7 = 'https://www.youtube.com/watch?v=D1Uf9vREh6Q&list=RDSlsH6PbDJZk&index=3'
+        st.video(video_7, format='video/mp4')
