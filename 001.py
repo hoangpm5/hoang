@@ -57,3 +57,11 @@ if b3:
         st.write('Đi giữa trời rực rỡ')
         video_7 = 'https://www.youtube.com/watch?v=D1Uf9vREh6Q&list=RDSlsH6PbDJZk&index=3'
         st.video(video_7, format='video/mp4')
+        
+        st.write('Lỡ Duyên')
+        video_8 = 'https://www.youtube.com/watch?v=fq_H4A3HgD4&list=RDfq_H4A3HgD4&start_radio=1&rv=fq_H4A3HgD4'
+        st.video(video_8, format='video/mp4')
+
+        st.write('Lỡ Duyên')
+        video_9 = 'https://www.youtube.com/watch?v=U0ZoqmyGJo8'
+        st.video(video_9, format='video/mp4')
