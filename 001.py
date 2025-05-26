@@ -1,4 +1,27 @@
 import streamlit as st # gọi thư viện streamlit
+from sklearn.linear_model import LinearRegression
+st.title("😀 Dự đoán số giờ ngủ cần thiết ")
+#Dữ liệu mẫu: [tuổi, mực độ vận động (1-10), thời gian dùng màn hình(giờ)]
+x = [
+    [10, 8, 1],
+    [20, 6, 5],
+    [25, 3, 8],
+    [30, 2, 6],
+    [50, 2, 2],
+    [15, 9, 2],
+    [40, 4, 3]
+]
+y = [10, 8, 6, 6, 5, 7, 9.5] # giờ ngủ được khuyên
+#Huấn luyện mô hình
+model = LinearRegression()
+model.fit(x, y)
+#giao diện người dùng
+st.write("Nhập thông tin của bạn: ")
+
+age = st.number_input("Tuổi của bạn ", min_value=5, max_value=100, value=25)
+activity = st.slider("Mức độ hoạt động thể chất (1 = ít, 10 = rất nắng động)", 1, 10, 5)
+screen_time = st.number_input("Thời gian dùng màn hình mỗi ngày(giờ)", min_value=0, max_value=24, value=6)
+
 with st.sidebar:
     image = "https://ticketgo.vn/photos/70/hinhanh-tintuc/5d30234792700.jpg"
     st.image(image, caption='Đen Vâu')
@@ -13,7 +36,9 @@ with col1:
 with col2:
     b2 = st.button('Bài hát của Hà anh Tuấn')    
 with col3:
-    b3 = st.button('Những bản nhạc giúp tâm trạng vui vẻ hơn')   
+    b3 = st.button('Những bản nhạc giúp tâm trạng vui vẻ hơn')
+with col4:
+    b4 = st.button("🥱 Dự đoán giờ đi ngủ ")
 if b1:
     with st.expander('Đen Vâu'):
         st.title('MV yêu thích')
@@ -64,5 +89,16 @@ if b3:
         st.write('Đi giữa trời rực rỡ')
         video_7 = 'https://www.youtube.com/watch?v=D1Uf9vREh6Q&list=RDSlsH6PbDJZk&index=3'
         st.video(video_7, format='video/mp4')
-        
-
+if b4:
+    with st.expander("Dự đoán giờ đi ngủ"):
+        input_data = [[age, activity, screen_time]]
+        result = model.predict(input_data)[0]
+        st.success(f"Bạn nên ngủ khoảng {result:.1f} giờ mỗi đêm")
+    
+        #Gợi ý thêm
+        if result < 6.5:
+            st.warning("Có thể bạn cần nghỉ ngơi nhiều hơn để cái thiện sức khỏe.")
+        elif result > 9:
+            st.info("Bạn có thể đang cận động nhiều-Ngủ đủ rất quan trọng để hồi phục cơ thể")
+        else:
+            st.success("Lượng ngủ lý tưởng! Hãy giữ thói quen tốt nhé. ")
