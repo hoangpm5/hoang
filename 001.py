@@ -92,15 +92,18 @@ if b4:
         age = st.number_input("Tuổi của bạn ", min_value=5, max_value=100, value=25)
         activity = st.slider("Mức độ hoạt động thể chất (1 = ít, 10 = rất nắng động)", 1, 10, 5)
         screen_time = st.number_input("Thời gian dùng màn hình mỗi ngày(giờ)", min_value=0, max_value=24, value=6)
-        if st.button("🥱 Dự đoán ngay "):
+        # Nút dự đoán riêng
+        dudoan_btn = st.button("📊 Dự đoán ngay")
+
+        if dudoan_btn:
             input_data = [[age, activity, screen_time]]
             result = model.predict(input_data)[0]
             st.success(f"Bạn nên ngủ khoảng {result:.1f} giờ mỗi đêm")
-        
-            #Gợi ý thêm
+
+            # Gợi ý thêm
             if result < 6.5:
-                st.warning("Có thể bạn cần nghỉ ngơi nhiều hơn để cái thiện sức khỏe.")
+                st.warning("Có thể bạn cần nghỉ ngơi nhiều hơn để cải thiện sức khỏe.")
             elif result > 9:
-                st.info("Bạn có thể đang cận động nhiều-Ngủ đủ rất quan trọng để hồi phục cơ thể")
+                st.info("Bạn có thể đang vận động nhiều – ngủ đủ rất quan trọng để hồi phục cơ thể.")
             else:
-                st.success("Lượng ngủ lý tưởng! Hãy giữ thói quen tốt nhé. ")
+                st.success("Lượng ngủ lý tưởng! Hãy giữ thói quen tốt nhé.")
