@@ -69,10 +69,20 @@ if b3:
         st.write('Đi giữa trời rực rỡ')
         video_7 = 'https://www.youtube.com/watch?v=D1Uf9vREh6Q&list=RDSlsH6PbDJZk&index=3'
         st.video(video_7, format='video/mp4')
+# Khởi tạo trạng thái nếu chưa có
+if "show_sleep_predictor" not in st.session_state:
+    st.session_state.show_sleep_predictor = False
+
+# Nếu nhấn nút "🥱 Dự đoán giờ đi ngủ", bật trạng thái
 if b4:
-    with st.expander("Dự đoán giờ đi ngủ"):
-        st.title("😀 Dự đoán số giờ ngủ cần thiết ")
-        #Dữ liệu mẫu: [tuổi, mực độ vận động (1-10), thời gian dùng màn hình(giờ)]
+    st.session_state.show_sleep_predictor = True
+
+# Nếu trạng thái đã được bật, hiển thị phần dự đoán
+if st.session_state.show_sleep_predictor:
+    with st.expander("🛌 Dự đoán giờ đi ngủ", expanded=True):
+        st.title("😀 Dự đoán số giờ ngủ cần thiết")
+
+        # Dữ liệu mẫu
         x = [
             [10, 8, 1],
             [20, 6, 5],
@@ -82,28 +92,28 @@ if b4:
             [15, 9, 2],
             [40, 4, 3]
         ]
-        y = [10, 8, 6, 6, 5, 7, 9.5] # giờ ngủ được khuyên
-        #Huấn luyện mô hình
+        y = [10, 8, 6, 6, 5, 7, 9.5]  # giờ ngủ được khuyên
+
+        # Huấn luyện mô hình
         model = LinearRegression()
         model.fit(x, y)
-        #giao diện người dùng
-        st.write("Nhập thông tin của bạn: ")
-        
-        age = st.number_input("Tuổi của bạn ", min_value=5, max_value=100, value=25)
-        activity = st.slider("Mức độ hoạt động thể chất (1 = ít, 10 = rất nắng động)", 1, 10, 5)
-        screen_time = st.number_input("Thời gian dùng màn hình mỗi ngày(giờ)", min_value=0, max_value=24, value=6)
-        # Nút dự đoán riêng
-        dudoan_btn = st.button("📊 Dự đoán ngay")
 
-        if dudoan_btn:
+        # Giao diện nhập thông tin
+        st.write("Nhập thông tin của bạn:")
+        age = st.number_input("Tuổi của bạn", min_value=5, max_value=100, value=25, key="tuoi")
+        activity = st.slider("Mức độ hoạt động thể chất (1 = ít, 10 = rất năng động)", 1, 10, 5, key="van_dong")
+        screen_time = st.number_input("Thời gian dùng màn hình mỗi ngày (giờ)", min_value=0, max_value=24, value=6, key="man_hinh")
+
+        # Nút dự đoán
+        if st.button("📊 Dự đoán ngay", key="du_doan"):
             input_data = [[age, activity, screen_time]]
             result = model.predict(input_data)[0]
             st.success(f"Bạn nên ngủ khoảng {result:.1f} giờ mỗi đêm")
 
             # Gợi ý thêm
             if result < 6.5:
-                st.warning("Có thể bạn cần nghỉ ngơi nhiều hơn để cải thiện sức khỏe.")
+                st.warning("😴 Có thể bạn cần nghỉ ngơi nhiều hơn để cải thiện sức khỏe.")
             elif result > 9:
-                st.info("Bạn có thể đang vận động nhiều – ngủ đủ rất quan trọng để hồi phục cơ thể.")
+                st.info("💪 Bạn có thể đang vận động nhiều – ngủ đủ giúp hồi phục cơ thể.")
             else:
-                st.success("Lượng ngủ lý tưởng! Hãy giữ thói quen tốt nhé.")
+                st.success("✅ Lượng ngủ lý tưởng! Hãy giữ thói quen tốt nhé.")
