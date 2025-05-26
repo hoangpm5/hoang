@@ -1,26 +1,6 @@
 import streamlit as st # gọi thư viện streamlit
 from sklearn.linear_model import LinearRegression
-st.title("😀 Dự đoán số giờ ngủ cần thiết ")
-#Dữ liệu mẫu: [tuổi, mực độ vận động (1-10), thời gian dùng màn hình(giờ)]
-x = [
-    [10, 8, 1],
-    [20, 6, 5],
-    [25, 3, 8],
-    [30, 2, 6],
-    [50, 2, 2],
-    [15, 9, 2],
-    [40, 4, 3]
-]
-y = [10, 8, 6, 6, 5, 7, 9.5] # giờ ngủ được khuyên
-#Huấn luyện mô hình
-model = LinearRegression()
-model.fit(x, y)
-#giao diện người dùng
-st.write("Nhập thông tin của bạn: ")
 
-age = st.number_input("Tuổi của bạn ", min_value=5, max_value=100, value=25)
-activity = st.slider("Mức độ hoạt động thể chất (1 = ít, 10 = rất nắng động)", 1, 10, 5)
-screen_time = st.number_input("Thời gian dùng màn hình mỗi ngày(giờ)", min_value=0, max_value=24, value=6)
 
 with st.sidebar:
     image = "https://ticketgo.vn/photos/70/hinhanh-tintuc/5d30234792700.jpg"
@@ -91,6 +71,27 @@ if b3:
         st.video(video_7, format='video/mp4')
 if b4:
     with st.expander("Dự đoán giờ đi ngủ"):
+        st.title("😀 Dự đoán số giờ ngủ cần thiết ")
+        #Dữ liệu mẫu: [tuổi, mực độ vận động (1-10), thời gian dùng màn hình(giờ)]
+        x = [
+            [10, 8, 1],
+            [20, 6, 5],
+            [25, 3, 8],
+            [30, 2, 6],
+            [50, 2, 2],
+            [15, 9, 2],
+            [40, 4, 3]
+        ]
+        y = [10, 8, 6, 6, 5, 7, 9.5] # giờ ngủ được khuyên
+        #Huấn luyện mô hình
+        model = LinearRegression()
+        model.fit(x, y)
+        #giao diện người dùng
+        st.write("Nhập thông tin của bạn: ")
+        
+        age = st.number_input("Tuổi của bạn ", min_value=5, max_value=100, value=25)
+        activity = st.slider("Mức độ hoạt động thể chất (1 = ít, 10 = rất nắng động)", 1, 10, 5)
+        screen_time = st.number_input("Thời gian dùng màn hình mỗi ngày(giờ)", min_value=0, max_value=24, value=6)
         input_data = [[age, activity, screen_time]]
         result = model.predict(input_data)[0]
         st.success(f"Bạn nên ngủ khoảng {result:.1f} giờ mỗi đêm")
