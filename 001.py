@@ -30,6 +30,10 @@ if b1:
         st.write('Mang tiền về cho mẹ')
         video_2 = 'https://www.youtube.com/watch?v=UVbv-PJXm14'
         st.video(video_2, format='video/mp4')
+        #video số 3
+        st.write('Mang tiền về cho mẹ')
+        video_3 = 'https://www.youtube.com/watch?v=nyw-cXXwk1s'
+        st.video(video_3, format='video/mp4')
 if b2:
     with st.expander('Hà Anh Tuấn'):
         st.title('MV YÊU THÍCH')
